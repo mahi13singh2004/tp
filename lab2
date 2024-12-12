@@ -1,0 +1,202 @@
+7
+interface Resizable {
+    void resizeWidth(int width);
+    void resizeHeight(int height);
+}
+
+class Rectangle implements Resizable {
+    private int width;
+    private int height;
+
+    public Rectangle(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public void resizeWidth(int width) {
+        this.width = width;
+        System.out.println("Width resized to: " + width);
+    }
+
+    @Override
+    public void resizeHeight(int height) {
+        this.height = height;
+        System.out.println("Height resized to: " + height);
+    }
+
+    public void displayDimensions() {
+        System.out.println("Rectangle Dimensions - Width: " + width + ", Height: " + height);
+    }
+}
+
+public class TestResizable {
+    public static void main(String[] args) {
+        Rectangle rectangle = new Rectangle(10, 5);
+        System.out.println("Initial Dimensions:");
+        rectangle.displayDimensions();
+        rectangle.resizeWidth(15);
+        rectangle.resizeHeight(8);
+        System.out.println("\nDimensions After Resizing:");
+        rectangle.displayDimensions();
+    }
+}
+
+8
+class Outer {
+
+    public void display() {
+        System.out.println("Outer class display method");
+    }
+
+    class Inner {
+
+        public void display() {
+            System.out.println("Inner class display method");
+        }
+    }
+}
+
+public class MainClass {
+
+    public static void main(String[] args) {
+        Outer outer = new Outer();
+        outer.display();
+        Outer.Inner inner = outer.new Inner();
+        inner.display();
+    }
+}
+
+
+9
+class DivisionByZeroException extends Exception {
+    public DivisionByZeroException(String message) {
+        super(message);
+    }
+}
+
+public class CustomExceptionExample {
+    public static void main(String[] args) {
+        try {
+            int numerator = 10;
+            int denominator = 0;
+            if (denominator == 0) {
+                throw new DivisionByZeroException("Division by zero is not allowed");
+            }
+            int result = numerator / denominator;
+            System.out.println("Result of the division: " + result);
+        } catch (DivisionByZeroException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            System.out.println("Finally block executed");
+        }
+    }
+}
+
+10
+package mypack;
+
+public class MyClass {
+
+    public void displayMessage() {
+        System.out.println("Hello from mypack.MyClass!");
+    }
+}
+
+import mypack.MyClass;
+
+public class MainClass {
+
+    public static void main(String[] args) {
+        MyClass myObject = new MyClass();
+        myObject.displayMessage();
+    }
+}
+
+
+11
+class MyRunnable implements Runnable {
+    private String threadName;
+
+    public MyRunnable(String name) {
+        this.threadName = name;
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(threadName + ": Count - " + i);
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            System.out.println(threadName + " thread interrupted.");
+        }
+        System.out.println(threadName + " thread exiting.");
+    }
+}
+
+public class RunnableThreadExample {
+    public static void main(String[] args) {
+        MyRunnable runnable1 = new MyRunnable("Thread 1");
+        MyRunnable runnable2 = new MyRunnable("Thread 2");
+
+        Thread thread1 = new Thread(runnable1);
+        Thread thread2 = new Thread(runnable2);
+
+        thread1.start();
+        thread2.start();
+
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Main Thread: Count - " + i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println("Main thread interrupted.");
+            }
+        }
+        System.out.println("Main thread exiting.");
+    }
+}
+
+
+
+
+12
+class MyThread extends Thread {
+    public MyThread(String threadName) {
+        super(threadName);
+        start();
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(Thread.currentThread().getName() + ": Count - " + i);
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            System.out.println(Thread.currentThread().getName() + " thread interrupted.");
+        }
+        System.out.println(Thread.currentThread().getName() + " thread exiting.");
+    }
+}
+
+public class ThreadExample {
+    public static void main(String[] args) {
+        MyThread myThread = new MyThread("Child Thread");
+
+        try {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(Thread.currentThread().getName() + ": Count - " + i);
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            System.out.println(Thread.currentThread().getName() + " thread interrupted.");
+        }
+        System.out.println(Thread.currentThread().getName() + " thread exiting.");
+    }
+}
