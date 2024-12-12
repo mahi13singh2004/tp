@@ -1,0 +1,378 @@
+1
+public class MatrixAddition {
+  public static void main(String[] args) {
+    if (args.length != 1) {
+      System.out.println("Usage: java MatrixAddition <order N>");
+      return;
+    }
+
+    int N = Integer.parseInt(args[0]);
+    int[][] matrix1 = new int[N][N];
+    int[][] matrix2 = new int[N][N];
+    int[][] result = new int[N][N];
+
+    System.out.println("Enter elements for Matrix 1:");
+    inputMatrix(matrix1);
+
+    System.out.println("Enter elements for Matrix 2:");
+    inputMatrix(matrix2);
+
+    addMatrices(matrix1, matrix2, result);
+
+    System.out.println("Resultant Matrix after Addition:");
+    displayMatrix(result);
+  }
+
+  public static void inputMatrix(int[][] matrix) {
+    Scanner scanner = new Scanner(System.in);
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        System.out.print("Enter element at position (" + i + ", " + j + "): ");
+        matrix[i][j] = scanner.nextInt();
+      }
+    }
+  }
+
+  public static void addMatrices(int[][] matrix1, int[][] matrix2, int[][] result) {
+    for (int i = 0; i < matrix1.length; i++) {
+      for (int j = 0; j < matrix1[0].length; j++) {
+        result[i][j] = matrix1[i][j] + matrix2[i][j];
+      }
+    }
+  }
+
+  public static void displayMatrix(int[][] matrix) {
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        System.out.print(matrix[i][j] + " ");
+      }
+      System.out.println();
+    }
+  }
+}
+
+
+
+2
+public class Stack {
+    private static final int MAX_SIZE = 10;
+    private int[] stackArray;
+    private int top;
+
+    public Stack() {
+        stackArray = new int[MAX_SIZE];
+        top = -1;
+    }
+
+    public void push(int element) {
+        if (top < MAX_SIZE - 1) {
+            stackArray[++top] = element;
+            System.out.println("Pushed: " + element);
+        } else {
+            System.out.println("Stack Overflow! Cannot push " + element);
+        }
+    }
+
+    public void pop() {
+        if (top >= 0) {
+            int poppedElement = stackArray[top--];
+            System.out.println("Popped: " + poppedElement);
+        } else {
+            System.out.println("Stack Underflow! Cannot pop from an empty stack.");
+        }
+    }
+
+    public void display() {
+        if (top >= 0) {
+            System.out.println("Elements in the Stack:");
+            for (int i = top; i >= 0; i--) {
+                System.out.println(stackArray[i]);
+            }
+        } else {
+            System.out.println("Stack is empty.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Stack myStack = new Stack();
+        myStack.push(5);
+        myStack.push(10);
+        myStack.push(20);
+        myStack.display();
+        myStack.pop();
+        myStack.display();
+        myStack.push(15);
+        myStack.push(25);
+        myStack.push(30);
+        myStack.display();
+        myStack.pop();
+        myStack.pop();
+        myStack.display();
+    }
+}
+
+
+3
+public class Employee 
+{
+ private int id;
+ private String name;
+ private double salary;
+ // Constructor
+ public Employee(int id, String name, double salary) 
+{
+ this.id = id;
+ this.name = name;
+ this.salary = salary;
+ }
+ // Getter methods
+ public int getId() 
+{
+ return id;
+ }
+ public String getName() 
+{
+ return name;
+ }
+ public double getSalary() 
+{
+ return salary;
+ }
+ // Method to raise the salary by a given percentage
+ public void raiseSalary(double percent) 
+{
+ if (percent > 0) 
+{
+ double increaseAmount = salary * (percent / 100);
+ salary += increaseAmount;
+ System.out.println("Salary raised by " + percent + "%. New salary: $" + salary);
+ } 
+else 
+{
+ System.out.println("Invalid percentage. Salary remains unchanged.");
+OOP with Java /BCS306A
+SBG, SM, VKB, Dept. of CSE, JSSATEB 2023-24
+6
+ }
+ }
+ public static void main(String[] args) 
+{
+ // Create an Employee object
+ Employee employee1 = new Employee(101, "John Doe", 50000.0);
+ // Display initial details
+ System.out.println("Employee details before raise:");
+ System.out.println("ID: " + employee1.getId());
+ System.out.println("Name: " + employee1.getName());
+ System.out.println("Salary: $" + employee1.getSalary());
+ // Raise the salary by 10%
+ employee1.raiseSalary(10);
+ // Display details after the raise
+ System.out.println("\nEmployee details after raise:");
+ System.out.println("ID: " + employee1.getId());
+ System.out.println("Name: " + employee1.getName());
+ System.out.println("Salary: $" + employee1.getSalary());
+ }
+}
+
+
+4
+public class MyPoint {
+    private int x;
+    private int y;
+
+    public MyPoint() {
+        this.x = 0;
+        this.y = 0;
+    }
+
+    public MyPoint(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int[] getXY() {
+        return new int[]{x, y};
+    }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    public double distance(int x, int y) {
+        int xDiff = this.x - x;
+        int yDiff = this.y - y;
+        return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+    }
+
+    public double distance(MyPoint another) {
+        int xDiff = this.x - another.x;
+        int yDiff = this.y - another.y;
+        return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+    }
+
+    public double distance() {
+        return Math.sqrt(x * x + y * y);
+    }
+}
+
+public class TestMyPoint {
+    public static void main(String[] args) {
+        MyPoint point1 = new MyPoint();
+        MyPoint point2 = new MyPoint(3, 4);
+        System.out.println("Point 1: " + point1.toString());
+        System.out.println("Point 2: " + point2.toString());
+        point1.setXY(1, 2);
+        System.out.println("Point 1 (after setXY): " + point1.toString());
+        int[] coordinates = point1.getXY();
+        System.out.println("Coordinates of Point 1: (" + coordinates[0] + ", " + coordinates[1] + ")");
+        double distance1 = point1.distance(point2);
+        System.out.println("Distance between Point 1 and Point 2: " + distance1);
+        double distance2 = point1.distance();
+        System.out.println("Distance from Point 1 to the Origin: " + distance2);
+    }
+}
+
+5
+class Shape {
+    public void draw() {
+        System.out.println("Drawing a shape");
+    }
+
+    public void erase() {
+        System.out.println("Erasing a shape");
+    }
+}
+
+class Circle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a circle");
+    }
+
+    @Override
+    public void erase() {
+        System.out.println("Erasing a circle");
+    }
+}
+
+class Triangle extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a triangle");
+    }
+
+    @Override
+    public void erase() {
+        System.out.println("Erasing a triangle");
+    }
+}
+
+class Square extends Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a square");
+    }
+
+    @Override
+    public void erase() {
+        System.out.println("Erasing a square");
+    }
+}
+
+public class TestShapes {
+    public static void main(String[] args) {
+        Shape[] shapes = new Shape[3];
+        shapes[0] = new Circle();
+        shapes[1] = new Triangle();
+        shapes[2] = new Square();
+
+        for (Shape shape : shapes) {
+            shape.draw();
+            shape.erase();
+            System.out.println();
+        }
+    }
+}
+
+
+6
+abstract class Shape 
+{
+ // Abstract methods
+ public abstract double calculateArea();
+ public abstract double calculatePerimeter();
+ }
+class Circle extends Shape 
+{
+ private double radius;
+ // Constructor
+ public Circle(double radius) 
+{
+ this.radius = radius;
+ }
+ // Implement abstract methods
+ @Override
+ public double calculateArea() 
+{
+ return Math.PI * radius * radius;
+ }
+ @Override
+ public double calculatePerimeter() 
+{
+ return 2 * Math.PI * radius;
+ }
+}
+class Triangle extends Shape 
+{
+ private double side1;
+ private double side2;
+ private double side3;
+ // Constructor
+ public Triangle(double side1, double side2, double side3) {
+ this.side1 = side1;
+ this.side2 = side2;
+OOP with Java /BCS306A
+SBG, SM, VKB, Dept. of CSE, JSSATEB 2023-24 13
+ this.side3 = side3;
+ }
+ 
+// Implement abstract methods
+ @Override
+ 
+public double calculateArea() 
+{
+ // Heron's formula for the area of a triangle
+ double s = (side1 + side2 + side3) / 2;
+ return Math.sqrt(s * (s - side1) * (s - side2) * (s - side3));
+ }
+ @Override
+ 
+public double calculatePerimeter() 
+{
+ return side1 + side2 + side3;
+ }
+}
+public class TestShapes 
+{
+ public static void main(String[] args) 
+{
+ // Create instances of Circle and Triangle
+ Circle circle = new Circle(5.0);
+ Triangle triangle = new Triangle(3.0, 4.0, 5.0);
+ // Display area and perimeter for Circle
+ System.out.println("Circle:");
+ System.out.println("Area: " + circle.calculateArea());
+ System.out.println("Perimeter: " + circle.calculatePerimeter());
+ System.out.println();
+ // Display area and perimeter for Triangle
+ System.out.println("Triangle:");
+ System.out.println("Area: " + triangle.calculateArea());
+ System.out.println("Perimeter: " + triangle.calculatePerimeter());
+ }
+}
+
